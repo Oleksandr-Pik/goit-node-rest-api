@@ -42,8 +42,8 @@ export const createContactSchema = Joi.object({
     "any.required": `Set name for contact`,
     "string.base": `"name" must be text`,
   }),
-  email: Joi.string().pattern(emailRegexp),
-  phone: Joi.string().pattern(phoneRegexp),
+  email: Joi.string().pattern(emailRegexp).required(),
+  phone: Joi.string().pattern(phoneRegexp).required(),
   favorite: Joi.boolean(),
 });
 
