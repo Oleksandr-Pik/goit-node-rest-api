@@ -14,8 +14,11 @@ const getAllContacts = async (req, res) => {
   }).populate("owner", "email subscription");
   const total = await Contact.find({ owner }).count();
   res.json({
-    result,
-    total,
+    contacts: result,
+    page: {
+      current: page,
+      total,
+    }
   });
 };
 

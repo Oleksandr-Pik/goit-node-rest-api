@@ -25,7 +25,8 @@ authRouter.post(
 );
 
 authRouter.patch(
-  "/:id/subscription",
+  "/subscription",
+  authenticate,
   isEmptyBody,
   validateBody(updateSibscriptionSchema),
   authController.updateSubscription
