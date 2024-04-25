@@ -86,10 +86,18 @@ const updateSubscription = async (req, res) => {
 };
 
 const updateAvatar = async (req, res) => {
+  if (!req.file) {
+    console.log(req.file);
+    console.log("Сработало!!!")
+    throw HttpError(400, "Expected file")
+  }
+
   try {
+    
     const { path: tempUpload, filename } = req.file;
 
     const img = await Jimp.read(req.file.path);
+
     await img
       .autocrop()
       .cover(
@@ -105,7 +113,7 @@ const updateAvatar = async (req, res) => {
     const resultUpload = path.join(avatarsDir, avatarName);
     await fs.rename(tempUpload, resultUpload);
 
-    const avatarURL = path.join("avatars", resultUpload);
+    const avatarURL = path.join("avatars", avatarName);
     await User.findByIdAndUpdate(_id, { avatarURL });
     res.json({
       avatarURL,
