@@ -91,11 +91,8 @@ const updateAvatar = async (req, res) => {
   }
 
   try {
-    
     const { path: tempUpload, filename } = req.file;
-
     const img = await Jimp.read(req.file.path);
-
     await img
       .autocrop()
       .cover(
