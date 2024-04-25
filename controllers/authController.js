@@ -87,8 +87,6 @@ const updateSubscription = async (req, res) => {
 
 const updateAvatar = async (req, res) => {
   if (!req.file) {
-    console.log(req.file);
-    console.log("Сработало!!!")
     throw HttpError(400, "Expected file")
   }
 
