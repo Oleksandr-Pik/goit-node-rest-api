@@ -7,7 +7,7 @@ import { handleSaveError, preUpdate } from "./hooks.js";
 const emailRegexp =
   /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
 
-const subscriptionList = ["starter", "pro", "business"]
+const subscriptionList = ["starter", "pro", "business"];
 
 const userSchema = new Schema(
   {
@@ -35,6 +35,15 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      default: null,
+      // required: [true, 'Verify token is required'],
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -49,6 +58,10 @@ export const userAuthSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
 });
+
+export const emailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+})
 
 export const updateSibscriptionSchema = Joi.object({
   subscription: Joi.string()
